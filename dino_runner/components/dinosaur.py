@@ -6,7 +6,7 @@ class Dinosaur(Sprite):
     x_POS = 80
     y_POS = 310
     JUMP_vel = 10
-    
+    DUCK_POS = 340
     def __init__(self):
         self.image = RUNNING[0]
         self.dino_rect = self.image.get_rect()
@@ -25,7 +25,8 @@ class Dinosaur(Sprite):
             self.run()
         if self.dino_duck:
             self.duck()
-        if user_input[pygame.K_DOWN] and not self.dino_duck:
+            
+        if user_input[pygame.K_DOWN] and not self.dino_jump:
             self.dino_run = False
             self.dino_duck = True
             self.dino_jump = False
@@ -66,8 +67,7 @@ class Dinosaur(Sprite):
             self.jump_vel = self.JUMP_vel
     
     def duck(self):
-        self.image = DUCKING[0]
-        self.dino_rect.y = 340
+        self.dino_rect.y = self.DUCK_POS
         if self.step_index < 5:
             self.image = DUCKING[1]
         else:
